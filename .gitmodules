@@ -1,0 +1,4 @@
+[submodule "usdt/libusdt"]
+	path = usdt/libusdt
+	url = git://github.com/nshalman/libusdt
+	branch = usdt_fire_probedef
