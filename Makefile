@@ -56,5 +56,9 @@ dist: clean
 	python setup.py bdist_wheel
 	ls -l dist
 
-build: clean
+usdt/libusdt/usdt.h:
+	git submodule init
+	git submodule update
+
+build: clean usdt/libusdt/usdt.h
 	python setup.py build

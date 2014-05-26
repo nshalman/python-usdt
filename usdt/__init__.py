@@ -49,15 +49,14 @@ if HAVE_USDT:
                 _LIBUSDT.usdt_fire_probedef(self.probedef, self.length, c_args)
 
         def __del__(self):
-            pass
+            _LIBUSDT.usdt_probe_release(self.probedef)
 
     class Provider(object):
         """ a USDT provider """
-        provider = None
-        probes = []
-
         def __init__(self, provider="python-dtrace", module="default_module"):
             self.provider = _LIBUSDT.usdt_create_provider(provider, module)
+            self.probes = []
+            self.desc = provider + " " + module
 
         def add_probe(self, probe):
             """ add a probe to this provider """
@@ -69,7 +68,11 @@ if HAVE_USDT:
             return(_LIBUSDT.usdt_provider_enable(self.provider))
 
         def __del__(self):
-            pass
+            for probe in self.probes:
+                del probe
+            del self.probes
+            _LIBUSDT.usdt_provider_disable(self.provider)
+            _LIBUSDT.usdt_provider_free(self.provider)
 else:
     from sys import stderr
 
