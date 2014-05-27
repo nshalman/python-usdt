@@ -33,11 +33,12 @@ if HAVE_USDT:
     class Probe(object):
         """ a USDT probe """
         def __init__(self, func, name, arg_desc):
+            self._LIBUSDT = _LIBUSDT
             self.length = len(arg_desc)
             args = (c_char_p * self.length)()
             for i in range(self.length):
                 args[i] = arg_desc[i]
-            self.probedef = _LIBUSDT.usdt_create_probe(func,
+            self.probedef = self._LIBUSDT.usdt_create_probe(func,
                     name, self.length, args)
 
         def fire(self, args):
@@ -46,33 +47,38 @@ if HAVE_USDT:
                 c_args = (c_void_p * self.length)()
                 for i in range(self.length):
                     c_args[i] = cast(args[i], c_void_p)
-                _LIBUSDT.usdt_fire_probedef(self.probedef, self.length, c_args)
+                self._LIBUSDT.usdt_fire_probedef(self.probedef, self.length, c_args)
 
         def __del__(self):
-            _LIBUSDT.usdt_probe_release(self.probedef)
+            self._LIBUSDT.usdt_probe_release(self.probedef)
+            del self._LIBUSDT
+            del self.length
+            del self.probedef
 
     class Provider(object):
         """ a USDT provider """
         def __init__(self, provider="python-dtrace", module="default_module"):
-            self.provider = _LIBUSDT.usdt_create_provider(provider, module)
+            self._LIBUSDT = _LIBUSDT
+            self.provider = self._LIBUSDT.usdt_create_provider(provider, module)
             self.probes = []
-            self.desc = provider + " " + module
 
         def add_probe(self, probe):
             """ add a probe to this provider """
             self.probes.append(probe)
-            _LIBUSDT.usdt_provider_add_probe(self.provider, probe.probedef)
+            self._LIBUSDT.usdt_provider_add_probe(self.provider, probe.probedef)
 
         def enable(self):
             """ enable the provider """
-            return(_LIBUSDT.usdt_provider_enable(self.provider))
+            return(self._LIBUSDT.usdt_provider_enable(self.provider))
 
         def __del__(self):
             for probe in self.probes:
                 del probe
             del self.probes
-            _LIBUSDT.usdt_provider_disable(self.provider)
-            _LIBUSDT.usdt_provider_free(self.provider)
+            self._LIBUSDT.usdt_provider_disable(self.provider)
+            self._LIBUSDT.usdt_provider_free(self.provider)
+            del self.provider
+            del self._LIBUSDT
 else:
     from sys import stderr
 
