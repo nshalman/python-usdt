@@ -4,9 +4,9 @@ Installation
 
 At the command line::
 
-    $ easy_install python-usdt
+    $ easy_install usdt
 
 Or, if you have virtualenvwrapper installed::
 
-    $ mkvirtualenv python-usdt
-    $ pip install python-usdt
+    $ mkvirtualenv usdt
+    $ pip install usdt

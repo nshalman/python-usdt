@@ -47,13 +47,11 @@ docs:
 	$(MAKE) -C docs html
 	open docs/_build/html/index.html
 
-release: clean
+release: clean usdt/libusdt/usdt.h
 	python setup.py sdist upload
-	python setup.py bdist_wheel upload
 
-dist: clean
+dist: clean usdt/libusdt/usdt.h
 	python setup.py sdist
-	python setup.py bdist_wheel
 	ls -l dist
 
 usdt/libusdt/usdt.h:
