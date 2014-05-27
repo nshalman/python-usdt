@@ -27,8 +27,8 @@ clean-pyc:
 lint:
 	flake8 usdt tests
 
-test:
-	python setup.py test
+test: usdt/libusdt.so
+	sudo python setup.py test
 
 test-all:
 	tox
@@ -60,3 +60,6 @@ usdt/libusdt/usdt.h:
 
 build: clean usdt/libusdt/usdt.h
 	python setup.py build
+
+usdt/libusdt.so: build
+	cp build/lib/usdt/libusdt.so $@
