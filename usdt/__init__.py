@@ -7,7 +7,7 @@ libusdt bindings for Python
 from __future__ import print_function
 __author__ = 'Nahum Shalman'
 __email__ = 'nshalman-github@elys.com'
-__version__ = '0.1.1dev'
+__version__ = '0.1.2dev'
 
 HAVE_USDT = False
 FAKE_DTRACE = False
