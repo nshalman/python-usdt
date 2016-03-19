@@ -4,9 +4,9 @@
 libusdt bindings for Python
 """
 
+from __future__ import print_function
 import os
 from ctypes import cdll, c_char_p, c_int, c_void_p, cast, POINTER
-from __future__ import print_function
 
 __author__ = 'Nahum Shalman'
 __email__ = 'nshalman-github@elys.com'
