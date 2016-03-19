@@ -5,7 +5,7 @@ Tools for logging that leverage USDT
 """
 
 from usdt import Probe, Provider
-import  logging
+import logging
 
 _LEVELS = [logging.CRITICAL, logging.ERROR, logging.WARNING, logging.INFO, logging.DEBUG, logging.NOTSET]
 _DESC = {
@@ -17,8 +17,10 @@ _DESC = {
     logging.NOTSET: "notset",
 }
 
+
 class DtraceHandler(logging.Handler):
     """ Handler to fire USDT probes with log messages """
+
     def __init__(self):
         logging.Handler.__init__(self)
 

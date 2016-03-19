@@ -4,16 +4,16 @@
 libusdt bindings for Python
 """
 
+import os
+from ctypes import cdll, c_char_p, c_int, c_void_p, cast, POINTER
 from __future__ import print_function
+
 __author__ = 'Nahum Shalman'
 __email__ = 'nshalman-github@elys.com'
 __version__ = '0.1.2dev'
 
 HAVE_USDT = False
 FAKE_DTRACE = False
-
-import os
-from ctypes import cdll, c_char_p, c_int, c_void_p, cast, POINTER
 
 try:
     HERE = os.path.dirname(os.path.realpath(__file__))
@@ -32,6 +32,7 @@ if HAVE_USDT:
 
     class Probe(object):
         """ a USDT probe """
+
         def __init__(self, func, name, arg_desc):
             self._LIBUSDT = _LIBUSDT
             self.length = len(arg_desc)
@@ -39,7 +40,7 @@ if HAVE_USDT:
             for i in range(self.length):
                 args[i] = arg_desc[i]
             self.probedef = self._LIBUSDT.usdt_create_probe(func,
-                    name, self.length, args)
+                                                            name, self.length, args)
 
         def fire(self, args):
             """ fire the probe """
@@ -57,6 +58,7 @@ if HAVE_USDT:
 
     class Provider(object):
         """ a USDT provider """
+
         def __init__(self, provider="python-dtrace", module="default_module"):
             self._LIBUSDT = _LIBUSDT
             self.provider = self._LIBUSDT.usdt_create_provider(provider, module)
@@ -84,6 +86,7 @@ else:
 
     class Probe(object):
         """ a fake USDT probe """
+
         def __init__(self, name, func, arg_desc):
             self.name = name
             self.func = func
@@ -94,8 +97,8 @@ else:
             """ send probe info to stderr if requested """
             if FAKE_DTRACE and self.provider and self.provider.enabled:
                 print(self.provider.provider, self.provider.module,
-                        self.name, self.func, args,
-                        file=stderr)
+                      self.name, self.func, args,
+                      file=stderr)
 
         def __del__(self):
             pass

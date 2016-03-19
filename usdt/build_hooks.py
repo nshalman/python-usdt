@@ -23,6 +23,6 @@ def post_build():
     try:
         if os.system("cd %s ; make %s clean all" % (libdir, extra)) == 0:
             os.system("gcc -g -shared -o %s -Wl,%s %s" %
-                    (library, linker_flag, source))
+                      (library, linker_flag, source))
     except:
         pass
