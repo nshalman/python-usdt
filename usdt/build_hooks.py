@@ -14,7 +14,7 @@ def post_build():
 
     linker_flag = "--whole-archive"
     compiler = subprocess.check_output(["cc", "--version"])
-    if "clang" in compiler:
+    if b"clang" in compiler:
         linker_flag = "-force_load"
 
     libdir = os.getcwd() + "/build/lib/usdt/libusdt"
