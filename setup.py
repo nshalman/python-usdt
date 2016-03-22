@@ -30,11 +30,11 @@ class build_py_(_build_py):
 
 setup(
     name='usdt',
-    version='0.1.2dev',
+    version='0.1.3',
     description='Python libusdt bindings',
     long_description=readme + '\n\n' + history,
     author='Nahum Shalman',
-    author_email='nshalman-github@elys.com',
+    author_email='nshalman@omniti.com',
     url='https://github.com/nshalman/python-usdt',
     packages=[
         'usdt',

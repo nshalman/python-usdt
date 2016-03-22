@@ -9,8 +9,8 @@ import os
 from ctypes import cdll, c_char_p, c_int, c_void_p, cast, POINTER
 
 __author__ = 'Nahum Shalman'
-__email__ = 'nshalman-github@elys.com'
-__version__ = '0.1.2dev'
+__email__ = 'nshalman@omniti.com'
+__version__ = '0.1.3'
 
 HAVE_USDT = False
 FAKE_DTRACE = False
