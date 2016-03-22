@@ -7,10 +7,12 @@ Tracing tools built on USDT
 from usdt import Probe, Provider
 import functools
 
+
 class fbt(object):
     """
     simple function boundary tracing decorator
     """
+
     def __init__(self, func):
         self.func = func
         probename = func.__name__
