@@ -8,6 +8,8 @@ Python libusdt bindings
 .. image:: https://pypip.in/d/usdt/badge.png
         :target: https://pypi.python.org/pypi/usdt
 
+.. image:: https://travis-ci.org/nshalman/python-usdt.svg?branch=master
+        :target: https://travis-ci.org/nshalman/python-usdt
 
 Python libusdt bindings
 
