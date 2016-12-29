@@ -3,6 +3,11 @@
 History
 -------
 
+0.1.4 (2016-12-29)
+---------------------
+
+* Support for CC environment variable at build time
+
 0.1.3 (2015-03-22)
 ---------------------
 
