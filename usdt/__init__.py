@@ -10,7 +10,7 @@ from ctypes import cdll, c_char_p, c_int, c_void_p, cast, POINTER
 
 __author__ = 'Nahum Shalman'
 __email__ = 'nshalman@omniti.com'
-__version__ = '0.1.3'
+__version__ = '0.1.4'
 
 HAVE_USDT = False
 FAKE_DTRACE = False

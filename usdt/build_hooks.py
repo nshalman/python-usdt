@@ -4,7 +4,10 @@ import subprocess
 
 OS = platform.os.uname()[0]
 ARCH = platform.architecture()[0]
-
+try:
+    COMPILER = os.environ['CC']
+except KeyError:
+    COMPILER = "gcc"
 
 def post_build():
     """Compile libusdt"""
@@ -13,7 +16,7 @@ def post_build():
         extra = "ARCH=i386"
 
     linker_flag = "--whole-archive"
-    compiler = subprocess.check_output(["cc", "--version"])
+    compiler = subprocess.check_output([COMPILER, "--version"])
     if b"clang" in compiler:
         linker_flag = "-force_load"
 
@@ -22,7 +25,7 @@ def post_build():
     library = libdir + ".so"
     try:
         if os.system("cd %s ; make %s clean all" % (libdir, extra)) == 0:
-            os.system("gcc -g -shared -o %s -Wl,%s %s" %
-                      (library, linker_flag, source))
+            os.system("%s -g -shared -o %s -Wl,%s %s" %
+                      (COMPILER, library, linker_flag, source))
     except:
         pass
